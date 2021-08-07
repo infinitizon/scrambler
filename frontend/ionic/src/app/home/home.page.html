@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Shuffle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div style="display: flex;align-items: center;justify-content: center;">
+    <ion-card style="width: 90%;">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-segment [(ngModel)]="segment" color="dark">
+            <ion-segment-button value="simple">
+              <ion-label style="font-size:large;margin-top: 5px;color: black;">Simple</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="image">
+              <ion-label style="font-size:large;margin-top: 5px;color: black;">Image</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-card-title>
+      </ion-card-header>
+      <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'simple'">
+            <ion-button (click)="shuffleBoard()" size="small" color="dark">Shuffle</ion-button>
+            <p style="font-size: 15px;" slot="primary">Moves:{{moves}}</p>
+          <ion-grid>
+            <ion-row *ngFor="let col of data" justify-content-center align-items-center>
+              <ion-col class="cube" tappable *ngFor="let row of col" (click)="move(row.row,row.col)"
+                [ngStyle]="{'background-color':(row.value===0)?'white':(row.isCorrect===true)?'#004cff':'skyblue'}" col-2>
+                {{(row.value===0)?'':row.value}}
+              </ion-col>
+              <br><br>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div *ngSwitchCase="'image'">
+          <ion-button size="small" (click)="shuffleBoard()"  color="dark" >Shuffle</ion-button>
+          <p style="font-size: 15px;" slot="primary" >Moves:{{moves}}</p>
+          <ion-grid>
+            <ion-row *ngFor="let col of data" justify-content-center align-items-center>
+              <ion-col class="image_cube" tappable *ngFor="let row of col" (click)="move(row.row,row.col) "
+                [ngStyle]="{'background-image': 'url(' + row.imageUrl + ')'}" col-2>
+                <!-- {{(row.value===0)?'':row.value}} -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

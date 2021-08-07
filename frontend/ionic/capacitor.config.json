@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "scrambler",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
